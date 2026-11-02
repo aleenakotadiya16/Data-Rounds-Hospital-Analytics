@@ -1,0 +1,26 @@
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+# Local Power BI and generated backup artifacts
+**/.pbi/
+HospitalAnalytics-backup*
+HospitalAnalytics.SemanticModel.backup-*/
+
+# Local development output
+node_modules/
+*.log
+.env
+.env.*
+!.env.example
+
+# Credentials, certificates, and machine-local configuration
+*.key
+*.pem
+*.pfx
+*.p12
+credentials.json
+secrets.json
+
+# Temporary validation and screenshot output
+validation-*/
+screenshots/generated/

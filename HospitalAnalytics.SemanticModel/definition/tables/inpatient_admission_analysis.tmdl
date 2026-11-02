@@ -1,0 +1,188 @@
+table inpatient_admission_analysis
+	lineageTag: cfaa2bc5-a905-4724-8633-791b12eee6ba
+
+	/// Distinct count of inpatient admission episodes.
+	measure 'Total Inpatient Admissions' = DISTINCTCOUNT('inpatient_admission_analysis'[admission_id])
+		formatString: #,##0
+		displayFolder: Admission Metrics
+		lineageTag: 7423ef14-420f-41d8-a53c-2eff50864f12
+
+	/// Inpatient admission episodes eligible for 30-day follow-up observation.
+	measure 'Eligible Admissions' = CALCULATE([Total Inpatient Admissions], 'inpatient_admission_analysis'[followup_eligible] = TRUE())
+		formatString: #,##0
+		displayFolder: Readmission Metrics
+		lineageTag: bbd272fe-1810-4d70-9682-755667117e3f
+
+	/// Eligible inpatient admission episodes with a derived 30-day return flag of 1.
+	measure '30-Day Returns' = CALCULATE([Total Inpatient Admissions], 'inpatient_admission_analysis'[followup_eligible] = TRUE(), 'inpatient_admission_analysis'[return_30d_flag] = 1)
+		formatString: #,##0
+		displayFolder: Readmission Metrics
+		lineageTag: ed8df4af-8f3c-4ddf-8196-380808ec71e1
+
+	/// Eligible inpatient admission episodes with a derived 30-day return divided by eligible admissions.
+	measure '30-Day Return Rate' = DIVIDE([30-Day Returns], [Eligible Admissions])
+		formatString: 0.00%
+		displayFolder: Readmission Metrics
+		lineageTag: f660f365-b497-46c3-96f7-ec1f3491b399
+
+	/// Average length of stay in days across inpatient admission episodes.
+	measure 'Average LOS (Days)' = AVERAGE('inpatient_admission_analysis'[los_days])
+		formatString: #,##0.00
+		displayFolder: Admission Metrics
+		lineageTag: 6c1c1088-9f2e-48bb-96c3-7f1f8d03b436
+
+	/// Median length of stay in days across inpatient admission episodes.
+	measure 'Median LOS (Days)' = MEDIAN('inpatient_admission_analysis'[los_days])
+		formatString: #,##0.00
+		displayFolder: Admission Metrics
+		lineageTag: a9f4194f-55dc-4fbd-96db-c07466ecafbc
+
+	column admission_id
+		dataType: string
+		isHidden
+		lineageTag: 0b556e91-d63d-4c5a-b978-e61b3042f236
+		summarizeBy: none
+		sourceColumn: admission_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column patient_id
+		dataType: string
+		isHidden
+		lineageTag: 0d1dfeea-6cc3-4751-98fb-68f508ef8ac5
+		summarizeBy: none
+		sourceColumn: patient_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column episode_number
+		dataType: int64
+		formatString: 0
+		lineageTag: 277b362b-464c-41cb-a493-b7435171a2c8
+		summarizeBy: none
+		sourceColumn: episode_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column admission_start
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a19cfd7a-69a1-43fb-97bc-3363019fa4d5
+		summarizeBy: none
+		sourceColumn: admission_start
+
+		variation Variation
+			isDefault
+			relationship: 701fae0c-f6fc-4cd8-ac01-e83bd747129a
+			defaultHierarchy: LocalDateTable_4d6f4131-a3ab-44eb-aa97-97c55681a24e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column discharge_time
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: edeaa7cb-ad20-409e-a916-e24a2a8e6509
+		summarizeBy: none
+		sourceColumn: discharge_time
+
+		variation Variation
+			isDefault
+			relationship: 55b07180-857b-400c-902b-4f05be9203ff
+			defaultHierarchy: LocalDateTable_efbbd1c3-7d92-4ac7-bb1a-a4a1c06f1846.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column discharge_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 16a3598b-ce86-458c-9e85-df649f0c89df
+		summarizeBy: none
+		sourceColumn: discharge_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column source_encounter_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 75803411-de8d-44c3-8ca9-7b4cfe889a02
+		summarizeBy: sum
+		sourceColumn: source_encounter_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column los_days
+		dataType: double
+		lineageTag: 7cf74633-6935-4df2-8f4d-bfe481d781fc
+		summarizeBy: sum
+		sourceColumn: los_days
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column next_admission_start
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: cf8e4e18-07de-4c9e-b143-e03065a5ebb4
+		summarizeBy: none
+		sourceColumn: next_admission_start
+
+		variation Variation
+			isDefault
+			relationship: 7cfad3ca-31b7-4af1-be3d-fb5f45542465
+			defaultHierarchy: LocalDateTable_699c7616-0df6-43bb-bdf6-a651fc245cbd.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column days_to_next_admission
+		dataType: double
+		lineageTag: ab1077d0-f3b9-4111-8c4c-21f8337ed218
+		summarizeBy: sum
+		sourceColumn: days_to_next_admission
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column followup_eligible
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 24a4c263-2c0b-4d69-9fdf-ad292583d28a
+		summarizeBy: none
+		sourceColumn: followup_eligible
+
+		annotation SummarizationSetBy = Automatic
+
+	column observed_return_30d
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 460a786e-6d61-48ca-af09-201a1de836b9
+		summarizeBy: none
+		sourceColumn: observed_return_30d
+
+		annotation SummarizationSetBy = Automatic
+
+	column return_30d_flag
+		dataType: int64
+		formatString: 0
+		lineageTag: 008120de-4cf3-4326-a0c9-5586cda059f0
+		summarizeBy: sum
+		sourceColumn: return_30d_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition inpatient_admission_analysis = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([Implementation="2.0"]),
+				    #"YOUR_GCP_PROJECT_Database" = Source{[Name="YOUR_GCP_PROJECT",Kind="Database"]}[Data],
+				    YOUR_BIGQUERY_DATASET_Schema = #"YOUR_GCP_PROJECT_Database"{[Name="YOUR_BIGQUERY_DATASET",Kind="Schema"]}[Data],
+				    inpatient_admission_analysis_Table = YOUR_BIGQUERY_DATASET_Schema{[Name="inpatient_admission_analysis",Kind="Table"]}[Data]
+				in
+				    inpatient_admission_analysis_Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

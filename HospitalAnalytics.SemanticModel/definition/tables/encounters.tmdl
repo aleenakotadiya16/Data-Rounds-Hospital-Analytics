@@ -1,0 +1,190 @@
+table encounters
+	lineageTag: acfe1b6e-8917-4b3e-b268-88606331c40b
+
+	/// Distinct count of encounter records at the encounter grain.
+	measure 'Total Encounters' = DISTINCTCOUNT('encounters'[Id])
+		formatString: #,##0
+		displayFolder: Encounter Metrics
+		lineageTag: 9f0134ec-de86-4c83-81e5-1ee1da63d9c3
+
+	/// Sum of recorded total claim cost from encounters. Source currency is not specified in the imported model.
+	measure 'Total Claim Cost' = SUM('encounters'[TOTAL_CLAIM_COST])
+		formatString: #,##0.00
+		displayFolder: Financial Metrics
+		lineageTag: 98603d85-416a-4116-9b49-e7dab8d0130c
+
+	/// Sum of recorded payer coverage from encounters. Source currency is not specified in the imported model.
+	measure 'Total Payer Coverage' = SUM('encounters'[PAYER_COVERAGE])
+		formatString: #,##0.00
+		displayFolder: Financial Metrics
+		lineageTag: aefc5f29-f4dd-4ac0-a0bc-6ed3ad3aa791
+
+	/// Recorded total claim cost less recorded payer coverage.
+	measure 'Recorded Cost-Coverage Gap' = [Total Claim Cost] - [Total Payer Coverage]
+		formatString: #,##0.00
+		displayFolder: Financial Metrics
+		lineageTag: 10251a44-5d26-4f5c-adb4-f109c72d6655
+
+	/// Average recorded total claim cost per encounter.
+	measure 'Average Claim Cost' = AVERAGE('encounters'[TOTAL_CLAIM_COST])
+		formatString: #,##0.00
+		displayFolder: Financial Metrics
+		lineageTag: f2198257-c718-480e-850e-40b0c50702c6
+
+	/// Recorded payer coverage divided by recorded total claim cost.
+	measure 'Payer Coverage Percentage' = DIVIDE([Total Payer Coverage], [Total Claim Cost])
+		formatString: 0.00%
+		displayFolder: Financial Metrics
+		lineageTag: 7fdfd7be-cb0e-4834-803f-2d0d51b7be9b
+
+	column Id
+		dataType: string
+		isHidden
+		lineageTag: 71100f17-550e-4f8c-9cba-289b6167207d
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column START
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: cf60949b-6b6e-47ee-966d-daa99737d443
+		summarizeBy: none
+		sourceColumn: START
+
+		variation Variation
+			isDefault
+			relationship: 19c27d4c-0c20-435c-95a1-5dc4ec30a8e7
+			defaultHierarchy: LocalDateTable_3b25f493-92e2-48da-90ed-9179cb8f5738.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column STOP
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ece2b827-c270-4dd8-a186-9685f68222bc
+		summarizeBy: none
+		sourceColumn: STOP
+
+		variation Variation
+			isDefault
+			relationship: cec153fd-48e3-4c59-bbfd-1072b03d8bd3
+			defaultHierarchy: LocalDateTable_fb0fd90b-e9db-4e75-899b-01f44639e805.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column PATIENT
+		dataType: string
+		isHidden
+		lineageTag: b9cbe828-28e9-4fe4-afd6-015186d50215
+		summarizeBy: none
+		sourceColumn: PATIENT
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORGANIZATION
+		dataType: string
+		isHidden
+		lineageTag: 94e9a703-e1a0-4ae0-8a5d-f436cd100863
+		summarizeBy: none
+		sourceColumn: ORGANIZATION
+
+		annotation SummarizationSetBy = Automatic
+
+	column PAYER
+		dataType: string
+		isHidden
+		lineageTag: 2c191cad-edfb-4297-8979-3da1d9388a79
+		summarizeBy: none
+		sourceColumn: PAYER
+
+		annotation SummarizationSetBy = Automatic
+
+	column ENCOUNTERCLASS
+		dataType: string
+		lineageTag: 85feb568-07a2-4311-84ce-000d647d81a7
+		summarizeBy: none
+		sourceColumn: ENCOUNTERCLASS
+
+		annotation SummarizationSetBy = Automatic
+
+	column CODE
+		dataType: int64
+		formatString: 0
+		lineageTag: 545b34e5-11a9-47c7-8f83-933561afaf35
+		summarizeBy: none
+		sourceColumn: CODE
+
+		annotation SummarizationSetBy = Automatic
+
+	column DESCRIPTION
+		dataType: string
+		lineageTag: a612e0db-e6b2-42a7-a04e-bc89341a2921
+		summarizeBy: none
+		sourceColumn: DESCRIPTION
+
+		annotation SummarizationSetBy = Automatic
+
+	column BASE_ENCOUNTER_COST
+		dataType: double
+		lineageTag: 25e602bc-cbc5-430a-bf6a-59d3f8b6f2a7
+		summarizeBy: sum
+		sourceColumn: BASE_ENCOUNTER_COST
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TOTAL_CLAIM_COST
+		dataType: double
+		lineageTag: fa3515b1-4268-4ee5-a319-442e0d88f398
+		summarizeBy: sum
+		sourceColumn: TOTAL_CLAIM_COST
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PAYER_COVERAGE
+		dataType: double
+		lineageTag: 05659d35-9d4b-4b15-a6bd-5a669a27a842
+		summarizeBy: sum
+		sourceColumn: PAYER_COVERAGE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column REASONCODE
+		dataType: int64
+		formatString: 0
+		lineageTag: a445b34b-97f6-42bc-b55f-6664db51e3bf
+		summarizeBy: none
+		sourceColumn: REASONCODE
+
+		annotation SummarizationSetBy = Automatic
+
+	column REASONDESCRIPTION
+		dataType: string
+		lineageTag: f4623372-e8c1-4d7a-a040-665bddbf1d4b
+		summarizeBy: none
+		sourceColumn: REASONDESCRIPTION
+
+		annotation SummarizationSetBy = Automatic
+
+	partition encounters = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([Implementation="2.0"]),
+				    #"YOUR_GCP_PROJECT_Database" = Source{[Name="YOUR_GCP_PROJECT",Kind="Database"]}[Data],
+				    YOUR_BIGQUERY_DATASET_Schema = #"YOUR_GCP_PROJECT_Database"{[Name="YOUR_BIGQUERY_DATASET",Kind="Schema"]}[Data],
+				    encounters_Table = YOUR_BIGQUERY_DATASET_Schema{[Name="encounters",Kind="Table"]}[Data]
+				in
+				    encounters_Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

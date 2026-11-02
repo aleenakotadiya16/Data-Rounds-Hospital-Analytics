@@ -1,0 +1,23 @@
+{
+  "encounters": {
+    "EncounterId": "Id",
+    "EncounterDate": "START",
+    "EncounterClass": "ENCOUNTERCLASS",
+    "Payer": "PAYER",
+    "Coverage": "PAYER_COVERAGE",
+    "ClaimAmount": "TOTAL_CLAIM_COST"
+  },
+  "inpatient_admission_analysis": {
+    "EpisodeId": "admission_id",
+    "AdmissionDate": "admission_start",
+    "DischargeDate": "discharge_time",
+    "DischargeYear": "discharge_year",
+    "PatientId": "patient_id",
+    "SourceEncounterCount": "source_encounter_count",
+    "LOSDays": "los_days",
+    "DaysToNextAdmission": "days_to_next_admission",
+    "Eligible": "followup_eligible",
+    "Return30": "observed_return_30d",
+    "Return30Flag": "return_30d_flag"
+  }
+}

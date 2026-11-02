@@ -1,0 +1,47 @@
+relationship 701fae0c-f6fc-4cd8-ac01-e83bd747129a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: inpatient_admission_analysis.admission_start
+	toColumn: LocalDateTable_4d6f4131-a3ab-44eb-aa97-97c55681a24e.Date
+
+relationship 55b07180-857b-400c-902b-4f05be9203ff
+	joinOnDateBehavior: datePartOnly
+	fromColumn: inpatient_admission_analysis.discharge_time
+	toColumn: LocalDateTable_efbbd1c3-7d92-4ac7-bb1a-a4a1c06f1846.Date
+
+relationship 7cfad3ca-31b7-4af1-be3d-fb5f45542465
+	joinOnDateBehavior: datePartOnly
+	fromColumn: inpatient_admission_analysis.next_admission_start
+	toColumn: LocalDateTable_699c7616-0df6-43bb-bdf6-a651fc245cbd.Date
+
+relationship 19c27d4c-0c20-435c-95a1-5dc4ec30a8e7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: encounters.START
+	toColumn: LocalDateTable_3b25f493-92e2-48da-90ed-9179cb8f5738.Date
+
+relationship cec153fd-48e3-4c59-bbfd-1072b03d8bd3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: encounters.STOP
+	toColumn: LocalDateTable_fb0fd90b-e9db-4e75-899b-01f44639e805.Date
+
+relationship 3e88b9eb-4098-4aa9-a205-c616adac7887
+	joinOnDateBehavior: datePartOnly
+	fromColumn: patients.BIRTHDATE
+	toColumn: LocalDateTable_cd5227a9-7e43-43f7-9333-8c0eb01cbc1d.Date
+
+relationship 981aead2-ec27-485e-9914-62a2056a43c3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: patients.DEATHDATE
+	toColumn: LocalDateTable_12b76d73-8e87-443c-a932-58f9de85c8bb.Date
+
+relationship Patients-to-Encounters
+	fromColumn: encounters.PATIENT
+	toColumn: patients.Id
+
+relationship Patients-to-InpatientAdmissions
+	fromColumn: inpatient_admission_analysis.patient_id
+	toColumn: patients.Id
+
+relationship Payers-to-Encounters
+	fromColumn: encounters.PAYER
+	toColumn: payers.Id
+

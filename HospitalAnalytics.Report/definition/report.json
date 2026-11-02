@@ -1,0 +1,116 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY26SU05",
+      "reportVersionAtImport": {
+        "visual": "2.9.0",
+        "report": "3.3.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY26SU05",
+          "path": "BaseThemes/CY26SU05.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "kpi-document-blue.svg",
+          "path": "kpi-document-blue.svg",
+          "type": "Image"
+        },
+        {
+          "name": "kpi-coins-green.svg",
+          "path": "kpi-coins-green.svg",
+          "type": "Image"
+        },
+        {
+          "name": "kpi-shield-gold.svg",
+          "path": "kpi-shield-gold.svg",
+          "type": "Image"
+        },
+        {
+          "name": "kpi-gap-rose.svg",
+          "path": "kpi-gap-rose.svg",
+          "type": "Image"
+        },
+        {
+          "name": "kpi-percent-purple.svg",
+          "path": "kpi-percent-purple.svg",
+          "type": "Image"
+        },
+        {
+          "name": "kpi-people-blue.svg",
+          "path": "kpi-people-blue.svg",
+          "type": "Image"
+        },
+        {
+          "name": "kpi-people-percent-blue.svg",
+          "path": "kpi-people-percent-blue.svg",
+          "type": "Image"
+        },
+        {
+          "name": "kpi-bed-blue.svg",
+          "path": "kpi-bed-blue.svg",
+          "type": "Image"
+        },
+        {
+          "name": "kpi-return-purple.svg",
+          "path": "kpi-return-purple.svg",
+          "type": "Image"
+        },
+        {
+          "name": "kpi-trend-rose.svg",
+          "path": "kpi-trend-rose.svg",
+          "type": "Image"
+        },
+        {
+          "name": "kpi-calendar-purple.svg",
+          "path": "kpi-calendar-purple.svg",
+          "type": "Image"
+        },
+        {
+          "name": "kpi-calendar-blue.svg",
+          "path": "kpi-calendar-blue.svg",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

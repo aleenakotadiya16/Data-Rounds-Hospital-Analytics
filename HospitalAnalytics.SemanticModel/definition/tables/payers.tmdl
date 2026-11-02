@@ -1,0 +1,76 @@
+table payers
+	lineageTag: 3d3a21db-4f68-4d5e-bd81-9cfada9d595a
+
+	column Id
+		dataType: string
+		isHidden
+		lineageTag: 965ce19e-1977-424d-ba3a-3f562dbd1b78
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column NAME
+		dataType: string
+		lineageTag: 0c4a38c3-3cdb-4806-bb41-1653c231d5e0
+		summarizeBy: none
+		sourceColumn: NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column ADDRESS
+		dataType: string
+		lineageTag: 7bb0298a-9770-4326-9faa-e3e734231934
+		summarizeBy: none
+		sourceColumn: ADDRESS
+
+		annotation SummarizationSetBy = Automatic
+
+	column CITY
+		dataType: string
+		lineageTag: c630ce49-70d4-44e2-a9d7-d047390d6192
+		summarizeBy: none
+		sourceColumn: CITY
+
+		annotation SummarizationSetBy = Automatic
+
+	column STATE_HEADQUARTERED
+		dataType: string
+		lineageTag: cff9750e-ee47-4a13-bab4-9b5b49041ed9
+		summarizeBy: none
+		sourceColumn: STATE_HEADQUARTERED
+
+		annotation SummarizationSetBy = Automatic
+
+	column ZIP
+		dataType: int64
+		formatString: 0
+		lineageTag: f2f49f4a-0701-4431-a09c-8435279c57fb
+		summarizeBy: none
+		sourceColumn: ZIP
+
+		annotation SummarizationSetBy = Automatic
+
+	column PHONE
+		dataType: string
+		lineageTag: 3f1df985-5e96-453a-9d0b-4a962bf58ef3
+		summarizeBy: none
+		sourceColumn: PHONE
+
+		annotation SummarizationSetBy = Automatic
+
+	partition payers = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([Implementation="2.0"]),
+				    #"YOUR_GCP_PROJECT_Database" = Source{[Name="YOUR_GCP_PROJECT",Kind="Database"]}[Data],
+				    YOUR_BIGQUERY_DATASET_Schema = #"YOUR_GCP_PROJECT_Database"{[Name="YOUR_BIGQUERY_DATASET",Kind="Schema"]}[Data],
+				    payers_Table = YOUR_BIGQUERY_DATASET_Schema{[Name="payers",Kind="Table"]}[Data]
+				in
+				    payers_Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

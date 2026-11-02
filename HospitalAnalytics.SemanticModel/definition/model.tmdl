@@ -1,0 +1,29 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["inpatient_admission_analysis","encounters","payers","patients"]
+
+annotation PBI_ProTooling = ["DevMode","MCP-PBIModeling"]
+
+ref table inpatient_admission_analysis
+ref table DateTableTemplate_6f7550e9-b181-4d8a-bac6-550566e442f3
+ref table LocalDateTable_4d6f4131-a3ab-44eb-aa97-97c55681a24e
+ref table LocalDateTable_efbbd1c3-7d92-4ac7-bb1a-a4a1c06f1846
+ref table LocalDateTable_699c7616-0df6-43bb-bdf6-a651fc245cbd
+ref table encounters
+ref table LocalDateTable_3b25f493-92e2-48da-90ed-9179cb8f5738
+ref table LocalDateTable_fb0fd90b-e9db-4e75-899b-01f44639e805
+ref table payers
+ref table patients
+ref table LocalDateTable_cd5227a9-7e43-43f7-9333-8c0eb01cbc1d
+ref table LocalDateTable_12b76d73-8e87-443c-a932-58f9de85c8bb
+
+ref cultureInfo en-US
+
